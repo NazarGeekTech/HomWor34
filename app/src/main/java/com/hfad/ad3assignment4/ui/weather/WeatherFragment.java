@@ -1,22 +1,26 @@
 package com.hfad.ad3assignment4.ui.weather;
+
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
+
 import com.bumptech.glide.Glide;
 import com.hfad.ad3assignment4.R;
 import com.hfad.ad3assignment4.data.model.MyWeather;
 import com.hfad.ad3assignment4.data.model.Weather;
 import com.hfad.ad3assignment4.data.remote.WeatherStorage;
 import com.hfad.ad3assignment4.databinding.FragmentWeatherBinding;
-import com.hfad.ad3assignment4.ui.base.BaseFragment;
+import com.hfad.ad3assignment4.base.BaseFragment;
 import com.hfad.ad3assignment4.ui.weather.adapters.WeatherAdapter;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -32,7 +36,9 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null){city = getArguments().getString("city");}
+        if (getArguments() != null) {
+            city = getArguments().getString("city");
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.R)
@@ -51,11 +57,13 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
                 "4bbf5a1ed98cd9f688ebb3651474cdd2",
                 new WeatherStorage.GetWeatherByCity() {
                     @Override
-                    public void onSuccess(MyWeather myWeather) {setValues(myWeather);}
+                    public void onSuccess(MyWeather myWeather) {
+                        setValues(myWeather);
+                    }
 
                     @Override
                     public void onFailure(String error) {
-                        Log.e("TAG", "onFailure: " + error );
+                        Log.e("TAG", "onFailure: " + error);
                     }
                 });
     }
@@ -65,13 +73,13 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
         String date = java.text.DateFormat.getDateTimeInstance().format(new Date());
         ui.textDate.setText(date);
 
-        String cityName =  myWeather.getName();
+        String cityName = myWeather.getName();
         String countryName = myWeather.getSys().getCountry();
         ui.textCity.setText(cityName + " " + countryName + "  ");
 
         ArrayList<Weather> cloud = (ArrayList<Weather>) myWeather.getWeather();
         Weather weather = cloud.get(0);
-        ui.textCloud.setText(String.valueOf( weather.getMain()));
+        ui.textCloud.setText(String.valueOf(weather.getMain()));
 
         String iconCode = weather.getIcon();
         String iconUrl = "http://openweathermap.org/img/w/" + iconCode + ".png";
@@ -86,23 +94,23 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
         Double fahrenheitDown = myWeather.getMain().getTempMin();
         ui.textCelsiusDown.setText(String.valueOf(fahrenheitDown));
 
-        Integer humidity  = myWeather.getMain().getHumidity();
+        Integer humidity = myWeather.getMain().getHumidity();
         ui.textPercentHumidity.setText(humidity + "%");
 
-        Integer pressure  = myWeather.getMain().getPressure();
+        Integer pressure = myWeather.getMain().getPressure();
         ui.textMBarPressure.setText(pressure + "mBar");
 
-        Double wind  = myWeather.getWind().getSpeed();
+        Double wind = myWeather.getWind().getSpeed();
         ui.textKMHWind.setText(wind + "km/h");
 
-        int sunriseSecs =  myWeather.getSys().getSunrise();
+        int sunriseSecs = myWeather.getSys().getSunrise();
         @SuppressLint("SimpleDateFormat")
-        String dateRise = new java.text.SimpleDateFormat("hh:mm a").format(new java.util.Date (sunriseSecs*1000));
+        String dateRise = new java.text.SimpleDateFormat("hh:mm a").format(new java.util.Date(sunriseSecs * 1000));
         ui.textSunRiseTime.setText(dateRise);
 
-        int sunsetSecs =  myWeather.getSys().getSunset();
+        int sunsetSecs = myWeather.getSys().getSunset();
         @SuppressLint("SimpleDateFormat")
-        String dateSet = new java.text.SimpleDateFormat("hh:mm a").format(new java.util.Date (sunsetSecs*1000));
+        String dateSet = new java.text.SimpleDateFormat("hh:mm a").format(new java.util.Date(sunsetSecs * 1000));
         ui.textSunSetTime.setText(dateSet);
 
     }

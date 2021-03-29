@@ -10,7 +10,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import com.hfad.ad3assignment4.R;
 import com.hfad.ad3assignment4.databinding.FragmentLocationsBinding;
-import com.hfad.ad3assignment4.ui.base.BaseFragment;
+import com.hfad.ad3assignment4.base.BaseFragment;
 import com.hfad.ad3assignment4.ui.locations.adapters.LocationsAdapter;
 import java.util.List;
 

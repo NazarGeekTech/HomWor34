@@ -1,10 +1,12 @@
 package com.hfad.ad3assignment4.data.remote;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitBuilder {
 
-    private RetrofitBuilder(){}
+    private RetrofitBuilder() {
+    }
 
     private static AndroidApi instance;
 
@@ -18,7 +20,7 @@ public class RetrofitBuilder {
     private static AndroidApi createApi() {
         return new Retrofit
                 .Builder()
-                .baseUrl("http://api.openweathermap.org/")
+                .baseUrl("https://api.openweathermap.org/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(AndroidApi.class);

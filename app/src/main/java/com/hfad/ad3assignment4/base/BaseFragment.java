@@ -1,4 +1,4 @@
-package com.hfad.ad3assignment4.ui.base;
+package com.hfad.ad3assignment4.base;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
